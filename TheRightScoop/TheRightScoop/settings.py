@@ -117,3 +117,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'right_scoop.api_response.custom_error_handler.custom_exception_handler'
+}
+
