@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'authentication',
+    'user_dashboard',
     'rest_framework',
     'rest_framework_simplejwt',
+
 
 ]
 
@@ -136,4 +138,9 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+# Media files (uploads)
+MEDIA_URL = '/media/'  # URL prefix for media files
+MEDIA_ROOT = BASE_DIR / 'media'  # Folder where uploaded files will be stored
+
 
