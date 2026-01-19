@@ -125,7 +125,7 @@ STATIC_URL = 'static/'
 
 
 REST_FRAMEWORK = {
-   # 'EXCEPTION_HANDLER': 'TheRightScoop.api_response.custom_error_handler.custom_exception_handler',
+    'EXCEPTION_HANDLER': 'TheRightScoop.api_response.custom_error_handler.custom_exception_handler',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
