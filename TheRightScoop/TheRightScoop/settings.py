@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'authentication',
     'user_dashboard',
     'rest_framework',
+    'category',
     'rest_framework_simplejwt',
 
 
