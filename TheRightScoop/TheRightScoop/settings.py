@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'authentication',
     'user_dashboard',
+    'cart',
     'rest_framework',
     'category',
     'product',
