@@ -14,7 +14,7 @@ class Category(BaseModel):
          related_name='subcategories'
     )
 
-    def __self__(self):
+    def __str__(self):
         return self.name
 
 # Create your models here.

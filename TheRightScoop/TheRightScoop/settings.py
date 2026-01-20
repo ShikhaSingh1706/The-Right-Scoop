@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user_dashboard',
     'rest_framework',
     'category',
+    'product',
     'rest_framework_simplejwt',
 
 
