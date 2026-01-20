@@ -18,8 +18,8 @@ class Product(BaseModel):
 # Create your models here.
 
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name
 
 #product image model
 class ProductImage(BaseModel):
