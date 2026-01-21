@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'category',
     'product',
     'rest_framework_simplejwt',
+    'widget_tweaks',
 
 
 ]
