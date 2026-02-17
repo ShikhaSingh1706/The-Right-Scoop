@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>My Addresses</h2>
+
+<a href="{% url 'dashboard:address_add' %}" class="btn">
+    ➕ Add New Address
+</a>
+
+<hr>
+
+{% for address in addresses %}
+    <div class="address-card">
+        <p><strong>{{ address.full_name }}</strong></p>
+        <p>{{ address.address_line1 }}</p>
+        {% if address.address_line2 %}
+            <p>{{ address.address_line2 }}</p>
+        {% endif %}
+        <p>{{ address.city }}, {{ address.state }} - {{ address.postal_code }}</p>
+        <p>📞 {{ address.phone }}</p>
+
+        {% if address.is_shipping %}
+            <span class="badge">Default Shipping</span>
+        {% endif %}
+
+        <br>
+
+        <a href="{% url 'dashboard:address_edit' address.id %}">✏️ Edit</a> |
+        <a href="{% url 'dashboard:address_delete' address.id %}">🗑 Delete</a>
+    </div>
+    <hr>
+{% empty %}
+    <p>No addresses saved yet.</p>
+{% endfor %}
+
+{% endblock %}

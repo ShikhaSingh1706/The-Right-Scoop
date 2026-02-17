@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h4 class="mb-4">Add New Address</h4>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            {{ form.full_name|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            {{ form.phone|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Address Line 1 -->
+                        <div class="mb-3">
+                            <label class="form-label">Address Line 1</label>
+                            {{ form.address_line1|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Address Line 2 -->
+                        <div class="mb-3">
+                            <label class="form-label">Address Line 2</label>
+                            {{ form.address_line2|add_class:"form-control" }}
+                        </div>
+
+                        <!-- City & State -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">City</label>
+                                {{ form.city|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">State</label>
+                                {{ form.state|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                        <!-- Country & Postal Code -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Country</label>
+                                {{ form.country|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Postal Code</label>
+                                {{ form.postal_code|add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                        <!-- Default Shipping -->
+                        <div class="form-check mb-4">
+                            {{ form.is_shipping|add_class:"form-check-input" }}
+                            <label class="form-check-label">
+                                Set as default shipping address
+                            </label>
+                        </div>
+
+                        <!-- Buttons -->
+                        <button type="submit" class="btn btn-primary">
+                            Save Address
+                        </button>
+                        <a href="{% url 'dashboard:profile_view' %}" class="btn btn-secondary ms-2">
+                            Cancel
+                        </a>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

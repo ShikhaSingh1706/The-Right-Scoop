@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <h2>My Profile</h2>
+
+    <!-- ================= PROFILE SECTION ================= -->
+    <div class="profile-card">
+        <h3>Profile Details</h3>
+
+        {% if profile.profile_photo %}
+            <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" class="profile-img">
+        {% else %}
+            <p>No profile photo</p>
+        {% endif %}
+
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>Phone:</strong> {{ profile.phone|default:"Not added" }}</p>
+
+        <a href="{% url 'dashboard:profile_edit' %}" class="btn">
+            ✏️ Edit Profile
+        </a>
+    </div>
+
+    <hr>
+
+    <!-- ================= ADDRESS SECTION ================= -->
+    <div class="address-section">
+        <h3>Saved Addresses</h3>
+
+        <a href="{% url 'dashboard:address_add' %}" class="btn">
+            ➕ Add New Address
+        </a>
+
+        {% for address in addresses %}
+            <div class="address-card">
+                <p><strong>{{ address.full_name }}</strong></p>
+                <p>
+                    {{ address.address_line1 }}<br>
+                    {% if address.address_line2 %}
+                        {{ address.address_line2 }}<br>
+                    {% endif %}
+                    {{ address.city }}, {{ address.state }} - {{ address.postal_code }}<br>
+                    {{ address.country }}
+                </p>
+                <p>📞 {{ address.phone }}</p>
+
+                {% if address.is_shipping %}
+                    <span class="badge">Default Shipping</span>
+                {% endif %}
+
+                <div class="address-actions">
+                    <a href="{% url 'dashboard:address_edit' address.id %}">✏️ Edit</a> |
+                    <a href="{% url 'dashboard:address_delete' address.id %}">🗑 Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No addresses saved yet.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

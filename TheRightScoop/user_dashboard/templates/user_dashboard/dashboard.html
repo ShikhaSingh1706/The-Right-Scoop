@@ -1,1 +1,50 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="list-group">
+
+                <a href="{% url 'dashboard:profile_view' %}" class="list-group-item">
+                    👤 View Profile
+                </a>
+
+                <a href="{% url 'dashboard:profile_edit' %}" class="list-group-item">
+                    ✏️ Edit Profile
+                </a>
+
+                <a href="{% url 'dashboard:address_list' %}" class="list-group-item">
+                    🏠 Address Book
+                </a>
+
+                <a href="#" class="list-group-item">
+                    📦 My Orders
+                </a>
+
+                <a href="{% url 'dashboard:wishlist' %}" class="list-group-item">
+                    ❤️ Wishlist
+                </a>
+
+                <a href="#" class="list-group-item text-danger">
+                    🚪 Logout
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Welcome, {{ request.user.first_name|default:request.user.username }}</h4>
+                    <p>Manage your account, orders and addresses from here.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

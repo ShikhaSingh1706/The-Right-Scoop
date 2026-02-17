@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Address</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Address</button>
+</form>
+
+<a href="{% url 'dashboard:address_list' %}">← Back to Address List</a>
+{% endblock %}
