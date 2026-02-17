@@ -1,63 +1,46 @@
-\{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <!-- Left Column: Profile Info -->
-        <div class="col-md-4 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {% if profile.profile_photo %}
-                        <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" 
-                             class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'default_profile.png' %}" alt="Profile Photo" 
-                             class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
-                    {% endif %}
-                    <h5>{{ request.user.username }}</h5>
-                    <p>{{ request.user.email }}</p>
-                    {% if profile.phone %}
-                        <p>📞 {{ profile.phone }}</p>
-                    {% endif %}
-                    <a href="{% url 'dashboard:profile_edit' %}" class="btn btn-primary btn-sm mt-2">Edit Profile</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Right Column: Default Address -->
-        <div class="col-md-8">
-            <div class="card shadow-sm mb-3">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">Default Shipping Address</h5>
-                </div>
-                <div class="card-body">
-                    {% with default_address=addresses|filter:"is_shipping" %}
-                        {% if default_address %}
-                            {% with address=default_address.0 %}
-                                <p><strong>{{ address.full_name }}</strong></p>
-                                <p>{{ address.address_line1 }} {% if address.address_line2 %}, {{ address.address_line2 }}{% endif %}</p>
-                                <p>{{ address.city }}, {{ address.state }} - {{ address.postal_code }}</p>
-                                <p>📞 {{ address.phone }}</p>
-                                {% if address.email %}
-                                    <p>Email: {{ address.email }}</p>
-                                {% endif %}
-                            {% endwith %}
-                        {% else %}
-                            <p>No default shipping address set.</p>
+                    <h4 class="mb-3 text-center">Edit Profile</h4>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% if form.instance.profile_photo %}
+                            <div class="mb-3 text-center">
+                                <img src="{{ form.instance.profile_photo.url }}"
+                                     class="rounded-circle mb-2"
+                                     style="width: 100px; height: 100px; object-fit: cover;">
+                            </div>
                         {% endif %}
-                    {% endwith %}
 
-                    <a href="{% url 'dashboard:address_list' %}" class="btn btn-outline-primary btn-sm mt-2">
-                        View All Addresses
-                    </a>
-                    <a href="{% url 'dashboard:address_add' %}" class="btn btn-success btn-sm mt-2">
-                        Add New Address
-                    </a>
+                        <div class="mb-3">
+                            <label class="form-label">Change Profile Photo</label>
+                            <input type="file" name="profile_photo" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Update Profile
+                        </button>
+
+                    </form>
+
                 </div>
             </div>
 
-            <!-- Optional: Wishlist or Orders summary can go here -->
         </div>
     </div>
 </div>

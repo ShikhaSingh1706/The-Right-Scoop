@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404 
+from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,13 +22,17 @@ class ProfileView(LoginRequiredMixin,View):
     def get(self, request):
         profile, _ = Profile.objects.get_or_create(user=request.user)
         addresses = request.user.addresses.all()
+        default_address = addresses.filter(is_shipping=True).first()
+
 
         return render(
             request,
             'user_dashboard/profile_view.html',
             {
                 'profile': profile,
-                'addresses': addresses
+                'addresses': addresses,
+                'default_address': default_address
+
             }
         )
 
@@ -37,28 +41,17 @@ class ProfileEditView(LoginRequiredMixin,View):
     login_url = '/login-page/'
 
     def get(self, request):
-        user = request.user
-        profile, _ = Profile.objects.get_or_create(user=user)
-        user_form = UserForm(instance=user)
-        profile_form = UserProfileForm(instance=profile)
-        return render(request, 'user_dashboard/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
+        profile = request.user.profile
+        form = UserProfileForm(instance=profile)
+        return render(request, 'user_dashboard/profile_edit.html', {'form': form})
 
     def post(self, request):
-        user = request.user
-        profile, _ = Profile.objects.get_or_create(user=user)
-        user_form = UserForm(request.POST, instance=user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
-
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_obj = profile_form.save(commit=False)  # 🔥 IMPORTANT
-            profile_obj.user = user                      # 🔥 FIX
-            profile_form.save()
-            messages.success(request, "Profile updated successfully!")
+        profile = request.user.profile
+        form = UserProfileForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
             return redirect('dashboard:profile_view')
-        messages.error(request, "Please correct the errors below")
-
-        return render(request, 'dashboard/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
+        return render(request, 'user_dashboard/profile_edit.html', {'form': form, 'form': form})
     
 
 
@@ -97,7 +90,7 @@ class AddressEditView(LoginRequiredMixin, View):
     login_url = '/login-page/'
 
     def get(self, request, pk):
-        address = AddressBook.objects.get(pk=pk, user=request.user)
+        address = get_object_or_404(AddressBook, pk=pk, user=request.user)
         form = AddressForm(instance=address)
         return render(request, 'user_dashboard/address_edit.html', {'form': form})
 
@@ -135,7 +128,7 @@ class AddressDeleteView(LoginRequiredMixin, View):
 
 class WishlistView(LoginRequiredMixin, View):
     def get(self, request):
-        wishlist_items = Wishlist.objects.filter(user=request.user)
+        wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
         return render(
             request,
             'user_dashboard/wishlist.html',
