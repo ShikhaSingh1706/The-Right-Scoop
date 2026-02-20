@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Right Scoop</title>
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font: Agbalumo -->
+    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+     }
+
+     body {
+    font-family: 'Agbalumo', cursive;
+    background-color: #f8f9fa;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+     }
+
+
+        /* ================= NAVBAR ================= */
+
+        .custom-navbar {
+            background: #fdfbf6;
+            padding: 2px 0;
+            border-bottom: 3px solid #551802;   /* Border Color */
+        }
+
+        /* Logo */
+        .logo-img {
+            height: 85px;
+            width: auto;
+        }
+
+        /* Brand text */
+        .navbar-brand {
+            font-size: 26px;
+            font-weight: 700;
+            color: #551802 !important;
+        }
+
+        /* Menu Links */
+        .nav-link {
+            font-size: 18px;
+            margin: 0 18px;
+            color: #551802 !important;   /* Text Color */
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Search Box */
+        .search-box {
+            width: 250px;
+            border-radius: 30px;
+            padding-left: 15px;
+            border: 2px solid #551802;
+        }
+
+        /* Login Button */
+        .login-btn {
+            border-radius: 25px;
+            padding: 6px 18px;
+            border: 2px solid #551802;
+            color: #551802;
+            background: transparent;
+        }
+
+        .login-btn:hover {
+            background: #551802;
+            color: white;
+        }
+
+        @media (max-width: 991px) {
+            .search-box {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+        /* ================= FOOTER ================= */
+
+.main-footer {
+    background-color: #cfc7fa;
+    color: #551802;
+    margin:0;
+}
+
+.footer-logo {
+    height: 80px;
+    width: auto;
+}
+
+.footer-heading {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #551802;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 0.7;
+}
+
+.social-icons a {
+    font-size: 22px;
+    margin-right: 15px;
+    color: #551802;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    opacity: 0.7;
+}
+
+.copyright {
+    background-color: #f0a3b7;
+    color: #551802;
+    font-size: 14px;
+    margin:0;
+}
+
+
+    </style>
+</head>
+<body>
+
+<!-- ================= NAVBAR START ================= -->
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/TRS_LOGO.png' %}" 
+                 alt="The Right Scoop Logo"
+                 class="logo-img">
+        </a>
+
+        <!-- Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <!-- Center Menu -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+            </ul>
+
+            <!-- Right Section -->
+            <div class="d-flex align-items-center gap-3">
+
+                <!-- Search -->
+                <form class="d-flex">
+                    <input class="form-control search-box" type="search" placeholder="Search products...">
+                </form>
+
+                <!-- Login Button -->
+                <a href="#" class="login-btn">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- ================= NAVBAR END ================= -->
+ <!-- HERO BLOCK OUTSIDE CONTAINER -->
+  {% block hero %}{% endblock %}
+
+<!-- Content Area -->
+<div class="container mt-4 flex-grow-1">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- ================= FOOTER START ================= -->
+<footer class="main-footer mt-5">
+
+    <div class="container py-5">
+        <div class="row">
+
+            <!-- Logo Section -->
+            <div class="col-md-3 mb-4">
+                <img src="{% static 'images/TRS_LOGO.png' %}" 
+                     alt="The Right Scoop Logo"
+                     class="footer-logo">
+            </div>
+
+            <!-- Menu Section -->
+            <div class="col-md-3 mb-4">
+                <h5 class="footer-heading">Menu</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-md-3 mb-4">
+                <h5 class="footer-heading">Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="col-md-3 mb-4">
+                <h5 class="footer-heading">Contact Us</h5>
+                <p>Email: info@therightscoop.com</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Location: Your City, India</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright text-center py-3">
+        © 2026 The Right Scoop. All Rights Reserved.
+    </div>
+
+</footer>
+<!-- ================= FOOTER END ================= -->
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
